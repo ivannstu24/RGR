@@ -13,9 +13,15 @@
 #include <string>
 #include <vector>
 
-std::string padMessage(const std::string& message, int rows, int cols);
-std::string encrypt(const std::string& message, int rows, int cols);
-std::string decrypt(const std::string& cipherText, int rows, int cols);
+using namespace std;
+
+string padMessage(const string& message, int rows, int cols);
+string encrypt(const string& message, int rows, int cols);
+string decrypt(const string& cipherText, int rows, int cols);
+void SimpleTable();
+int main();
+
+
 
 
 #endif /* encryption_hpp */

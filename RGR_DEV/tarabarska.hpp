@@ -13,8 +13,13 @@
 #include <string>
 #include <unordered_map>
 
-std::unordered_map<char, char> createTarabarskaMap();
-std::string tarabarskaCipher(const std::string& text, const std::unordered_map<char, char>& tarabarska_map);
+using namespace std;
+
+unordered_map<char, char> createTarabarskaMap();
+void Tarabara();
+int main();
+
+string tarabarskaCipher(const string& text, const unordered_map<char, char>& tarabarska_map);
 
 
 #endif /* tarabarska_hpp */

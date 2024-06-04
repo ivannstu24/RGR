@@ -8,9 +8,14 @@
 #include <iostream>
 #include "menu.hpp"
 
+using namespace std;
+
+
 void displayMenu() {
-    std::cout << "Выберите шифр:" << std::endl;
-    std::cout << "1. Простая табличная перестановка" << std::endl;
-    std::cout << "2. Тарабарская грамота" << std::endl;
-    std::cout << "Нажмите 3 для выбора шифра ..." << std::endl;
+    cout << "Выберите шифр:" << endl;
+    cout << "1. Простая табличная перестановка" << endl;
+    cout << "2. Тарабарская грамота" << endl;
+    cout << "3. Шифр Атбаш" << endl;
+    cout << "4. Завершение работы" << endl;
+
 }

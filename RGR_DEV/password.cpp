@@ -10,15 +10,17 @@
 #include <iostream>
 #include <fstream>
 
-bool checkPassword(const std::string& inputPassword) {
-    std::ifstream passwordFile("/Users/ivanmerzov/Desktop/RGR_DEV/RGR_DEV/password.txt");
+using namespace std;
+
+bool checkPassword(const string& inputPassword) {
+    ifstream passwordFile("/Users/ivanmerzov/Desktop/RGR_DEV/RGR_DEV/password/password.txt");
     if (!passwordFile) {
-        std::cerr << "Ошибка при открытии файла с паролем" << std::endl;
+        cerr << "Ошибка при открытии файла с паролем" << endl;
         return false;
     }
 
-    std::string storedPassword;
-    std::getline(passwordFile, storedPassword);
+    string storedPassword;
+    getline(passwordFile, storedPassword);
 
     passwordFile.close();
 
