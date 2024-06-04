@@ -13,7 +13,7 @@
 using namespace std;
 
 bool checkPassword(const string& inputPassword) {
-    ifstream passwordFile("/Users/ivanmerzov/Desktop/RGR_DEV/RGR_DEV/password/password.txt");
+    ifstream passwordFile("/Users/ivanmerzov/Desktop/RGR_DEV/RGR_DEV/password1/password.txt");
     if (!passwordFile) {
         cerr << "Ошибка при открытии файла с паролем" << endl;
         return false;
