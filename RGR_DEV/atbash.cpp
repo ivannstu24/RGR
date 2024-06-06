@@ -1,21 +1,15 @@
-//
-//  atbash.cpp
-//  RGR_DEV
-//
-//  Created by Иван Мерзов on 05.06.2024.
-//
-
 #include "atbash.hpp"
 
 #include <iostream>
 #include <string>
+#include <sstream>
 #include <fstream>
 #include <algorithm>
-#include <unordered_map>
+#include <map>
 
 using namespace std;
+namespace fs = std::filesystem;
 
-// Atbash encryption/decryption for English text
 string atbashEncryptDecrypt(const string& text, const string& alphabet) {
     string result = "";
     for (char c : text) {
@@ -31,11 +25,10 @@ string atbashEncryptDecrypt(const string& text, const string& alphabet) {
     return result;
 }
 
-// Tarabar encryption/decryption for Russian text
 string tarabarEncryptDecrypt(const string& text) {
     string consonants_top = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
     string consonants_bottom = "ЯЮЭЬЫЪЩШЧЦХФУТСРПОНМЛКЙИЗЖЁЕДГВБА";
-    unordered_map<char, char> tarabarska_map;
+    map<char, char> tarabarska_map;
 
     for (size_t i = 0; i < consonants_top.size(); ++i) {
         tarabarska_map[consonants_top[i]] = consonants_bottom[i];
@@ -71,20 +64,27 @@ void atbash() {
         cin >> inputChoice;
     } while (inputChoice != 1 && inputChoice != 2);
 
-    cin.ignore(); // Игнорируем остаток строки после ввода числа
+    cin.ignore();
 
     if (inputChoice == 1) {
         cout << "Введите текст для шифрования: ";
         getline(cin, text);
     } else if (inputChoice == 2) {
-        filename = "/Users/ivanmerzov/Desktop/RGR_DEV/RGR_DEV/default_text.txt";
-        ifstream inputFile(filename);
-        if (inputFile.is_open()) {
-            getline(inputFile, text, '\0'); // Читаем весь файл в строку
-            inputFile.close();
-        } else {
-            cout << "Не удалось открыть файл " << filename << endl;
-            return; // Возврат из функции в случае ошибки открытия файла
+        while (true) {
+            cout << "Введите путь к файлу который будем шифровать: ";
+            getline(cin, filename);
+
+            ifstream infile(filename);
+            if (infile.is_open()) {
+                ostringstream ss;
+                ss << infile.rdbuf();
+                text = ss.str();
+                infile.close();
+                cout << "Текст успешно прочитан из файла " << filename << endl;
+                break;
+            } else {
+                cout << "Ошибка открытия файла. Пожалуйста, попробуйте снова." << endl;
+            }
         }
     }
 
@@ -100,17 +100,29 @@ void atbash() {
     cout << "Зашифрованный текст: " << encryptedText << endl;
     cout << "Расшифрованный текст: " << decryptedText << endl;
 
-    // Запись зашифрованного текста в файл
-    ofstream outfile("/Users/ivanmerzov/Desktop/RGR_DEV/RGR_DEV/encrypted_text.txt");
-    if (outfile.is_open()) {
-        outfile << encryptedText;
-        outfile.close();
-        cout << "Зашифрованный текст успешно записан в файл encrypted_text.txt" << endl;
-    } else {
-        cout << "Ошибка открытия файла для записи" << endl;
+    string filePath2;
+    while (true) {
+        cout << "Введите путь к файлу, в который нужно записать зашифрованный текст: ";
+        getline(cin, filePath2); // Читаем всю строку, включая пробелы
+
+        fs::path dirPath = fs::path(filePath2).parent_path();
+        if (fs::exists(dirPath) && fs::is_directory(dirPath)) {
+            ofstream outfile(filePath2);
+            if (outfile.is_open()) {
+                outfile << encryptedText;
+                outfile.close();
+                cout << "Зашифрованный текст успешно записан в файл " << filePath2 << endl;
+                break;
+            } else {
+                cout << "Ошибка открытия файла для записи. Пожалуйста, попробуйте снова." << endl;
+            }
+        } else {
+            cout << "Неверный путь. Введите еще раз: " << endl;
+        }
     }
 
-    cout << "Нажмите Enter для выхода" << endl;
+    cout << "Нажмите Enter для выбора другого шифра" << endl;
+    cin.get(); // Ждем нажатия Enter
     cin.ignore();
-    main();
+    main(); // Рекурсивно вызываем atbash() для выбора другого шифра
 }

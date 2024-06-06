@@ -1,9 +1,4 @@
-//
-//  password.cpp
-//  RGR_DEV
-//
-//  Created by Иван Мерзов on 30.05.2024.
-//
+
 
 #include "password.hpp"
 

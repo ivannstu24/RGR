@@ -1,9 +1,3 @@
-//
-//  tarabarska.hpp
-//  RGR_DEV
-//
-//  Created by Иван Мерзов on 30.05.2024.
-//
 
 #ifndef tarabarska_hpp
 #define tarabarska_hpp

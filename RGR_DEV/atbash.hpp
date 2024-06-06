@@ -1,9 +1,4 @@
-//
-//  atbash.hpp
-//  RGR_DEV
-//
-//  Created by Иван Мерзов on 05.06.2024.
-//
+
 
 #ifndef atbash_hpp
 #define atbash_hpp
